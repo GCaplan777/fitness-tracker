@@ -1,47 +1,42 @@
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
 
-// define the schema
-// name, type, weight, sets, reps, and duration of exercise. If the exercise is a cardio exercise, I should be able to track my distance traveled.
-
-const workoutSchema = new Schema({
-  day: {
-    type: Date,
-    default: Date.now,
-  },
-  exercises: [
-    {
-      type: {
-        type: String,
-        trim: true,
-        required: "Enter info",
-      },
-      name: {
-        type: String,
-        trim: true,
-        required: "Enter info",
-      },
-      duration: {
-        type: Number,
-        required: "Enter info",
-      },
-      weight: {
-        type: Number,
-      },
-      reps: {
-        type: Number,
-      },
-      sets: {
-        type: Number,
-      },
-      distance: {
-        type: Number,
-      },
+const WorkoutSchema = new Schema(
+  {
+    day: {
+      type: Date,
+      default: Date.now,
     },
-  ],
+    exercises: [
+      {
+        type: { type: String, trim: true, required: true },
+        name: { type: String, trim: true, required: true },
+        duration: { type: Number, required: true },
+        weight: Number,
+        reps: Number,
+        sets: Number,
+        distance: Number,
+      },
+    ],
+  },
+  {
+    toJSON: {
+      // include any virtual properties when data is requested
+      virtuals: true,
+    },
+  }
+);
+
+WorkoutSchema.virtual("totalDuration").get(function () {
+  var totalDuration = this.exercises.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.duration,
+    0
+  );
+
+  return totalDuration;
 });
 
-// create the model
-const Workout = mongoose.model("Workout", workoutSchema);
+const Workout = mongoose.model("Workout", WorkoutSchema);
 
 module.exports = Workout;
