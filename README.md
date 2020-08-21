@@ -52,5 +52,5 @@ gabriel.caplan@gmail.com
 
 ## DEMOS
 
-Gif runthrough!
-![ezgif com-optimize (6)](https://user-images.githubusercontent.com/67020051/90859039-684fb180-e355-11ea-9092-c35179ad6f51.gif)
+Youtube link!
+https://youtu.be/4ol5dzEYfys
