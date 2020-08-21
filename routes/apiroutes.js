@@ -18,4 +18,14 @@ router.get("/api/workouts", (req, res) => {
     });
 });
 
+router.post("/api/workouts", (req, res) => {
+  Workout.create(req.body)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 module.exports = router;
